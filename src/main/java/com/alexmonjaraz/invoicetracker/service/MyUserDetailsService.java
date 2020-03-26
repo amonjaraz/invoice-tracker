@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.service;
+package com.alexmonjaraz.invoicetracker.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.alexmonjaraz.customuserregistration.DAO.UserRepo;
-import com.alexmonjaraz.customuserregistration.entity.MyUserDetail;
-import com.alexmonjaraz.customuserregistration.entity.User;
+import com.alexmonjaraz.invoicetracker.DAO.UserRepo;
+import com.alexmonjaraz.invoicetracker.entity.MyUserDetail;
+import com.alexmonjaraz.invoicetracker.entity.User;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

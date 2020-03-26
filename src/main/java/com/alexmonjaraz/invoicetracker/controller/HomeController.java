@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.controller;
+package com.alexmonjaraz.invoicetracker.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

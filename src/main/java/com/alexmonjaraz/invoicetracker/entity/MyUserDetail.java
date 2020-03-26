@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.entity;
+package com.alexmonjaraz.invoicetracker.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

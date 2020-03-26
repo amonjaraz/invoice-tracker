@@ -1,9 +1,9 @@
-package com.alexmonjaraz.customuserregistration.DAO;
+package com.alexmonjaraz.invoicetracker.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.alexmonjaraz.customuserregistration.entity.User;
+import com.alexmonjaraz.invoicetracker.entity.User;
 
 public interface UserRepo extends JpaRepository<User, Integer> {
 

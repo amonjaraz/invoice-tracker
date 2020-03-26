@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.config;
+package com.alexmonjaraz.invoicetracker.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.formLogin().loginPage("/login")
 		.loginProcessingUrl("/authenticateTheUser")
 		.and()
-		.exceptionHandling().accessDeniedPage("/accessDenied");
+		.exceptionHandling().accessDeniedPage("/accessDenied")
+		.and()
+		.logout().permitAll();
 		
 	}
 

@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.entity;
+package com.alexmonjaraz.invoicetracker.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

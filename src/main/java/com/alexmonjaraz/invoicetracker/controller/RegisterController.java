@@ -1,4 +1,4 @@
-package com.alexmonjaraz.customuserregistration.controller;
+package com.alexmonjaraz.invoicetracker.controller;
 
 import javax.validation.Valid;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alexmonjaraz.customuserregistration.DAO.UserRepo;
-import com.alexmonjaraz.customuserregistration.entity.NewUser;
-import com.alexmonjaraz.customuserregistration.entity.User;
+import com.alexmonjaraz.invoicetracker.DAO.UserRepo;
+import com.alexmonjaraz.invoicetracker.entity.NewUser;
+import com.alexmonjaraz.invoicetracker.entity.User;
 
 @Controller
 @RequestMapping("/register")
