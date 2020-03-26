@@ -45,7 +45,9 @@ public class RegisterController {
 			model.addAttribute("ExistingUserError", "That user name already exists.");
 			return "register/registration-form";
 		}
-		//show confirm page if all OK
-		return "redirect:/";
+		//save and show confirm page if all OK
+		User validUser = new User(newUser);
+		userRepo.save(validUser);
+		return "redirect:/login";
 	}
 }

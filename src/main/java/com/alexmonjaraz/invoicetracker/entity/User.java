@@ -27,6 +27,15 @@ public class User {
 	
 	@Column(name="role")
 	private String role; //comma delimited string with roles.
+	
+	public User () {}
+	
+	public User (NewUser newUser) {
+		this.userName = newUser.getUserName();
+		this.password = newUser.getPassword();
+		this.email = newUser.getEmail();
+		this.role = "ROLE_USER"; //default user
+	}
 
 	public int getId() {
 		return id;
