@@ -1,6 +1,7 @@
 package com.alexmonjaraz.invoicetracker.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
 import com.alexmonjaraz.invoicetracker.entity.Store;
@@ -37,6 +39,19 @@ public class StoreController {
 	@PostMapping("/save")
 	public String save(@ModelAttribute("store") Store store) {
 		storeRepo.save(store);
-		return "redirect:/";
+		return "redirect:/dashboard/store/";
+	}
+	
+	@GetMapping("/update")
+	public String updateForm(@RequestParam("id") int id ,Model model) {
+		Optional<Store> value = storeRepo.findById(id);
+		Store store;
+		if (value.isPresent()) { 
+			store = value.get(); 
+			model.addAttribute("store", store);
+			return "store/create-form";
+		}
+		else return "redirect:/dashboard/store/";
+
 	}
 }

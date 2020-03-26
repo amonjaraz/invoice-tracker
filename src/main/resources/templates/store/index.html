@@ -10,11 +10,13 @@
 			<thead>
 				<tr>
 					<th>Name</th>
+					<th>Link</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="store: ${stores}">
 					<td th:text="${store.name}"/>
+					<td><a th:href="@{/dashboard/store/update(id=${store.id})}">Update</a> </td>
 				</tr>
 			</tbody>
 		</table>
