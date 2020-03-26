@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Store</title>
+		
+	</head>
+	<body>
+		<form action="#" th:action="@{/dashboard/store/save}" th:object="${store}" method="post">
+			<input th:field="*{name}" placeholder="Name" />
+			<input th:field="*{address}" placeholder="Address"/>
+			<input th:field="*{city}" placeholder="City"/>
+			<input th:field="*{state}" placeholder="State"/>
+			<input th:field="*{zip}" placeholder="Zip"/>
+			<input th:field="*{note}" placeholder="Note"/>
+			<button type="submit">Save</button>
+		</form>
+	</body>
+</html>

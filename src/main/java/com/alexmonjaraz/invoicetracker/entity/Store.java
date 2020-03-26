@@ -17,6 +17,7 @@ public class Store {
 	private int id;
 	
 	private String name;
+	private String address;
 	private String city;
 	private String state;
 	private String zip;
@@ -76,6 +77,14 @@ public class Store {
 	public String toString() {
 		return "Store [id=" + id + ", name=" + name + ", city=" + city + ", state=" + state + ", zip=" + zip + ", note="
 				+ note + "]";
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }
