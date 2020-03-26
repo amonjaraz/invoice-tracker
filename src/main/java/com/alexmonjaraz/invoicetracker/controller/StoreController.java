@@ -1,0 +1,15 @@
+package com.alexmonjaraz.invoicetracker.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/dashboard/store")
+public class StoreController {
+
+	@GetMapping("/")
+	public String getStoreList() {
+		return "store/index";
+	}
+}
