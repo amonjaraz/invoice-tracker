@@ -8,5 +8,6 @@
 		<p th:text="${store.name}"></p>
 		<p th:text="${store.address}"></p>
 		<p th:text="${store.city}"></p>
+		<a th:href="@{/dashboard/invoice/(storeId=${store.id})}">Invoices</a>
 	</body>
 </html>

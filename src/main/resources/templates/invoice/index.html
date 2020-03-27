@@ -21,6 +21,7 @@
 					<td th:text="${invoice.createdBy}" />
 					<!--|<a th:href="@{'/dashboard/store/'+${store.id}}">Detail</a>  -->
 					<td><a th:href="@{/dashboard/invoice/update(id=${invoice.id})}">Update</a> </td>
+					<td><a th:href="@{'/dashboard/invoice/'+${invoice.id}}">Details</a> </td>
 				</tr>
 			</tbody>
 		</table>
