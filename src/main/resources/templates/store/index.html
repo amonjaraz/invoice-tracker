@@ -16,7 +16,7 @@
 			<tbody>
 				<tr th:each="store: ${stores}">
 					<td th:text="${store.name}"/>
-					<td><a th:href="@{/dashboard/store/update(id=${store.id})}">Update</a> </td>
+					<td><a th:href="@{/dashboard/store/update(id=${store.id})}">Update</a>|<a th:href="@{'/dashboard/store/'+${store.id}}">Detail</a> </td>
 				</tr>
 			</tbody>
 		</table>
