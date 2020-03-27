@@ -34,6 +34,7 @@ public class InvoiceController {
 		if (storeOp.isPresent()) {
 			Store store = storeOp.get();
 			List<Invoice> invoices = store.getInvoices();
+			model.addAttribute("storeId", storeId);
 			model.addAttribute("invoices", invoices);
 			return "invoice/index";
 		}
