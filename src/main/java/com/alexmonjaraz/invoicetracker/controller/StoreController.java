@@ -6,6 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +27,10 @@ public class StoreController {
 	@Autowired
 	private StoreRepo storeRepo;
 	
+	
 	@GetMapping("/")
 	public String getStoreList(Model model) {
 		List<Store> allStores =  storeRepo.findAll();
-		System.out.println(allStores);
 		model.addAttribute("stores", allStores);
 		return "store/index";
 	}
