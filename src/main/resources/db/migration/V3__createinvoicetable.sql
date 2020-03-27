@@ -7,6 +7,5 @@ CREATE TABLE invoice (
 	note varchar(50) not null,
 	discount numeric,
 	commission_pay_date date,
-	store_id BIGINT REFERENCES store(id),
-	unique(store_id)
+	store_id BIGINT REFERENCES store(id)
 )

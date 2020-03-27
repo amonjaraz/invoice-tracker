@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,8 +40,20 @@ public class InvoiceController {
 		else return "invoice/index";
 	}
 	
+	@GetMapping("/{id}")
+	public String getDetails(@PathVariable("id") int id ,Model model) {
+		Optional<Invoice> invoiceOp = invoiceRepo.findById(id);
+		if (invoiceOp.isPresent()) {
+			Invoice invoice = invoiceOp.get();
+			model.addAttribute("invoice", invoice);
+			return "invoice/invoice-details";
+		}
+		return "redirect:/dashboard/store/";
+	}
+	
 	@GetMapping("/create")
-	public String showAddForm(Model model) {
+	public String showAddForm(@RequestParam("storeId") int storeId,Model model) {
+		model.addAttribute("storeId", storeId);
 		model.addAttribute("invoice", new Invoice());
 		return "invoice/create-form";
 	}
@@ -50,10 +63,11 @@ public class InvoiceController {
 		Optional<Store> storeOp = storeRepo.findById(1);
 		if (storeOp.isPresent()) {
 			Store store = storeOp.get();
+			System.out.println(store.getInvoices().size()); 
 			store.add(invoice);
 			invoiceRepo.save(invoice);
 			storeRepo.save(store);
-			return "invoice/index";
+			return "redirect:/dashboard/store/";
 		}
 		return "redirect:/dashboard/store/";
 	}
