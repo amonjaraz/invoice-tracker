@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Invoice</title>
+		
+	</head>
+	<body>
+		<form action="#" th:action="@{/dashboard/invoice/save}" th:object="${invoice}" method="post">
+			<input type="hidden" th:field="*{id}"/>
+			<input th:field="*{createdBy}" placeholder="Created By" />
+			<input th:field="*{terms}" placeholder="Terms" />
+			<input th:field="*{note}" placeholder="Note" />
+			
+			<input th:field="*{discount}" placeholder="discount" />
+			<button type="submit">Save</button>
+		</form>
+	</body>
+</html>

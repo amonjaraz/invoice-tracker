@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Store</title>
+		
+	</head>
+	<body>
+		<h2>List of Stores..... </h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Link</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="invoice: ${invoices}">
+					<td th:text="${invoice.id}"/>
+					<td th:text="${invoice.invoiceNumber}" />
+					<td th:text="${invoice.note}" />
+					<td th:text="${invoice.createdBy}" />
+					<!--|<a th:href="@{'/dashboard/store/'+${store.id}}">Detail</a>  -->
+					<td><a th:href="@{/dashboard/invoice/update(id=${invoice.id})}">Update</a> </td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

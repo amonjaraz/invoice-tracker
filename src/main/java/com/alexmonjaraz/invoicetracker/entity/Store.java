@@ -1,10 +1,14 @@
 package com.alexmonjaraz.invoicetracker.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +27,18 @@ public class Store {
 	private String zip;
 	private String note;
 	
+	@OneToMany(mappedBy="store")
+	private List<Invoice> invoices;
+	
 	public Store() {}
+	
+	public void add(Invoice invoice) {
+		if(invoices == null) {
+			invoices = new ArrayList<Invoice>();
+		}
+		invoices.add(invoice);
+		invoice.setStore(this);
+	}
 
 	public int getId() {
 		return id;
@@ -85,6 +100,14 @@ public class Store {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public List<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 	
 }
