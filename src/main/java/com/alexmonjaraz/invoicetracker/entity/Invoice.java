@@ -1,6 +1,8 @@
 package com.alexmonjaraz.invoicetracker.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -42,6 +45,17 @@ public class Invoice {
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store;
+	
+	@OneToMany(mappedBy="invoice")
+	private List<Invoice_Item> invoiceItems;
+	
+	public void add(Invoice_Item invoiceItem) {
+		if (invoiceItems == null) {
+			invoiceItems = new ArrayList<Invoice_Item>();
+		}
+		invoiceItems.add(invoiceItem);
+		invoiceItem.setInvoice(this);
+	}
 	
 	public Invoice() {}
 
@@ -122,6 +136,14 @@ public class Invoice {
 		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", dateCreated=" + dateCreated
 				+ ", createdBy=" + createdBy + ", terms=" + terms + ", note=" + note + ", discount=" + discount
 				+ ", commissionPayDate=" + commissionPayDate + ", store=" + store + "]";
+	}
+
+	public List<Invoice_Item> getInvoiceItems() {
+		return invoiceItems;
+	}
+
+	public void setInvoiceItems(List<Invoice_Item> invoiceItems) {
+		this.invoiceItems = invoiceItems;
 	}
 	
 	

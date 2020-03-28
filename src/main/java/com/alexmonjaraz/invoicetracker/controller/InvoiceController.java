@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alexmonjaraz.invoicetracker.DAO.InvoiceItemRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceRepo;
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
 import com.alexmonjaraz.invoicetracker.entity.Invoice;
@@ -27,6 +28,9 @@ public class InvoiceController {
 	
 	@Autowired
 	private InvoiceRepo invoiceRepo;
+	
+	@Autowired
+	private InvoiceItemRepo invoiceItemRepo;
 	
 	@GetMapping("/")
 	public String getStoreList(@RequestParam("storeId") int storeId ,Model model) {
