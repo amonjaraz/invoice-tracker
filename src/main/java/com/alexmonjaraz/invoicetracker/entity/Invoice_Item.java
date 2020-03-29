@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="invoice_item")
@@ -17,8 +19,15 @@ public class Invoice_Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
+	
+	@NotNull
+	@Size(min=1, max=50, message="Item description must be filled.")
 	private String description;
+	
+	@NotNull
 	private int quantity;
+	
+	@NotNull
 	private double price;
 	
 	@ManyToOne

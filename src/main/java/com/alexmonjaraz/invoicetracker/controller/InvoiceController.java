@@ -3,9 +3,13 @@ package com.alexmonjaraz.invoicetracker.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceItemRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceRepo;
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
+import com.alexmonjaraz.invoicetracker.DTO.InvoiceDTO;
 import com.alexmonjaraz.invoicetracker.entity.Invoice;
+import com.alexmonjaraz.invoicetracker.entity.Invoice_Item;
 import com.alexmonjaraz.invoicetracker.entity.Store;
 
 @Controller
@@ -31,6 +37,8 @@ public class InvoiceController {
 	
 	@Autowired
 	private InvoiceItemRepo invoiceItemRepo;
+	
+
 	
 	@GetMapping("/")
 	public String getStoreList(@RequestParam("storeId") int storeId ,Model model) {
@@ -59,20 +67,41 @@ public class InvoiceController {
 	@GetMapping("/create")
 	public String showAddForm(@RequestParam("storeId") int storeId,Model model) {
 		model.addAttribute("storeId", storeId);
-		model.addAttribute("invoice", new Invoice());
+		
+		InvoiceDTO invoiceDTO = new InvoiceDTO();
+		invoiceDTO.setInvoice(new Invoice());
+		
+		invoiceDTO.addInventoryItem(new Invoice_Item());
+		invoiceDTO.addInventoryItem(new Invoice_Item());
+		invoiceDTO.addInventoryItem(new Invoice_Item());
+		invoiceDTO.addInventoryItem(new Invoice_Item());
+		
+		model.addAttribute("invoiceDTO", invoiceDTO);
 		return "invoice/create-form";
 	}
 	
 	@PostMapping("/save")
-	public String save(@ModelAttribute("invoice") Invoice invoice) {
-		Optional<Store> storeOp = storeRepo.findById(1);
+	public String save(@RequestParam("storeId") int storeId, @Valid @ModelAttribute("invoiceDTO") InvoiceDTO invoiceDTO, 
+						BindingResult bindingResult, Model model) {
+		model.addAttribute("storeId", storeId);
+		Optional<Store> storeOp = storeRepo.findById(storeId);
 		if (storeOp.isPresent()) {
 			Store store = storeOp.get();
-			System.out.println(store.getInvoices().size()); 
-			store.add(invoice);
-			invoiceRepo.save(invoice);
-			storeRepo.save(store);
-			return "redirect:/dashboard/store/";
+			if(!bindingResult.hasErrors()) {
+				
+				//discard invoice items with quantity zero.
+				invoiceDTO.getInvoiceItems().removeIf(x-> x.getQuantity() == 0);
+				//save invoice and items
+				store.getInvoices();
+				store.add(invoiceDTO.getInvoice());
+				invoiceRepo.save(invoiceDTO.getInvoice());
+				invoiceDTO.getInvoiceItems().forEach(x-> invoiceDTO.getInvoice().add(x));
+				invoiceItemRepo.saveAll(invoiceDTO.getInvoice().getInvoiceItems());
+				storeRepo.save(store);
+				//redirect to store list
+				return "redirect:/dashboard/store/";
+			} 
+			else return "invoice/create-form";
 		}
 		return "redirect:/dashboard/store/";
 	}
