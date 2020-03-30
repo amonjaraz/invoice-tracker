@@ -16,6 +16,8 @@
 			<input th:field="*{invoice.terms}" placeholder="Terms" />
 			<input th:field="*{invoice.note}" placeholder="Note" />
 			<input th:field="*{invoice.discount}" placeholder="discount" />
+			<br/>
+			<h3>Invoice Items</h3>
 			<table>
 				<tbody>
 					<tr th:each="inventoryItem, stat : *{invoiceItems}">
@@ -25,6 +27,18 @@
 					</tr>
 				</tbody>
 			</table>
+			<br/>
+			<h3>Credit Items</h3>
+			<table>
+				<tbody>
+					<tr th:each="creditItem, stat : *{creditItems}">
+						<td><input th:field="*{creditItems[__${stat.index}__].description}" /></td>
+						<td><input th:field="*{creditItems[__${stat.index}__].quantity}" /></td>
+						<td><input th:field="*{creditItems[__${stat.index}__].price}" /></td>
+					</tr>
+				</tbody>
+			</table>
+			
 			<button type="submit">Save</button>
 		</form>
 	</body>

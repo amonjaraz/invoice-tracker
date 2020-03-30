@@ -53,12 +53,23 @@ public class Invoice {
 	@OneToMany(mappedBy="invoice")
 	private List<Invoice_Item> invoiceItems;
 	
-	public void add(Invoice_Item invoiceItem) {
+	@OneToMany(mappedBy="invoice")
+	private List<Invoice_Credit> creditItems;
+	
+	public void addInvoiceItem(Invoice_Item invoiceItem) {
 		if (invoiceItems == null) {
-			invoiceItems = new ArrayList<Invoice_Item>();
+			invoiceItems = new ArrayList<>();
 		}
 		invoiceItems.add(invoiceItem);
 		invoiceItem.setInvoice(this);
+	}
+	
+	public void addCreditItem(Invoice_Credit creditItem) {
+		if (creditItems == null) {
+			creditItems = new ArrayList<>();
+		}
+		creditItems.add(creditItem);
+		creditItem.setInvoice(this);
 	}
 	
 	public Invoice() {}
@@ -148,6 +159,14 @@ public class Invoice {
 
 	public void setInvoiceItems(List<Invoice_Item> invoiceItems) {
 		this.invoiceItems = invoiceItems;
+	}
+
+	public List<Invoice_Credit> getCreditItems() {
+		return creditItems;
+	}
+
+	public void setCreditItems(List<Invoice_Credit> creditItems) {
+		this.creditItems = creditItems;
 	}
 	
 	

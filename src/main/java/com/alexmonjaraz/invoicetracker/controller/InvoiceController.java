@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alexmonjaraz.invoicetracker.DAO.InvoiceCreditRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceItemRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceRepo;
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
 import com.alexmonjaraz.invoicetracker.DTO.InvoiceDTO;
 import com.alexmonjaraz.invoicetracker.entity.Invoice;
+import com.alexmonjaraz.invoicetracker.entity.Invoice_Credit;
 import com.alexmonjaraz.invoicetracker.entity.Invoice_Item;
 import com.alexmonjaraz.invoicetracker.entity.Store;
 
@@ -38,7 +40,8 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceItemRepo invoiceItemRepo;
 	
-
+	@Autowired
+	private InvoiceCreditRepo invoiceCreditRepo;
 	
 	@GetMapping("/")
 	public String getStoreList(@RequestParam("storeId") int storeId ,Model model) {
@@ -76,6 +79,11 @@ public class InvoiceController {
 		invoiceDTO.addInventoryItem(new Invoice_Item());
 		invoiceDTO.addInventoryItem(new Invoice_Item());
 		
+		invoiceDTO.addCreditItem(new Invoice_Credit());
+		invoiceDTO.addCreditItem(new Invoice_Credit());
+		invoiceDTO.addCreditItem(new Invoice_Credit());
+		invoiceDTO.addCreditItem(new Invoice_Credit());
+		
 		model.addAttribute("invoiceDTO", invoiceDTO);
 		return "invoice/create-form";
 	}
@@ -91,12 +99,19 @@ public class InvoiceController {
 				
 				//discard invoice items with quantity zero.
 				invoiceDTO.getInvoiceItems().removeIf(x-> x.getQuantity() == 0);
+				invoiceDTO.getCreditItems().removeIf(x-> x.getQuantity()==0);
 				//save invoice and items
 				store.getInvoices();
 				store.add(invoiceDTO.getInvoice());
 				invoiceRepo.save(invoiceDTO.getInvoice());
-				invoiceDTO.getInvoiceItems().forEach(x-> invoiceDTO.getInvoice().add(x));
+				
+				invoiceDTO.getInvoiceItems().forEach(x-> invoiceDTO.getInvoice().addInvoiceItem(x));
 				invoiceItemRepo.saveAll(invoiceDTO.getInvoice().getInvoiceItems());
+				
+				invoiceDTO.getCreditItems().forEach(x->invoiceDTO.getInvoice().addCreditItem(x));
+				invoiceCreditRepo.saveAll(invoiceDTO.getInvoice().getCreditItems());
+				
+				
 				storeRepo.save(store);
 				//redirect to store list
 				return "redirect:/dashboard/store/";
