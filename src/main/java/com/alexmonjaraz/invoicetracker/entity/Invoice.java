@@ -32,8 +32,6 @@ public class Invoice {
 	@Column(name="date_created")
 	private Date dateCreated;
 	
-	@NotNull
-	@Size(min=1, message="Invoice created by is required.")
 	@Column(name="created_by")
 	private String createdBy;
 	

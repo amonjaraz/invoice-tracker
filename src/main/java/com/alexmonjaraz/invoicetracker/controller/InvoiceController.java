@@ -96,6 +96,7 @@ public class InvoiceController {
 		Optional<Store> storeOp = storeRepo.findById(storeId);
 		if (storeOp.isPresent()) {
 			Store store = storeOp.get();
+			invoiceDTO.getInvoice().setCreatedBy(authentication.getName());
 			if(!bindingResult.hasErrors()) {
 				
 				//discard invoice items with quantity zero.
@@ -103,16 +104,19 @@ public class InvoiceController {
 				invoiceDTO.getCreditItems().removeIf(x-> x.getQuantity()==0);
 				//save invoice and items
 				store.getInvoices();
-				invoiceDTO.getInvoice().setCreatedBy(authentication.getName());
+				
 				store.add(invoiceDTO.getInvoice());
 				invoiceRepo.save(invoiceDTO.getInvoice());
 				
-				invoiceDTO.getInvoiceItems().forEach(x-> invoiceDTO.getInvoice().addInvoiceItem(x));
-				invoiceItemRepo.saveAll(invoiceDTO.getInvoice().getInvoiceItems());
+				if (invoiceDTO.getInvoiceItems().size() > 0) {
+					invoiceDTO.getInvoiceItems().forEach(x-> invoiceDTO.getInvoice().addInvoiceItem(x));
+					invoiceItemRepo.saveAll(invoiceDTO.getInvoice().getInvoiceItems());
+				}
 				
-				invoiceDTO.getCreditItems().forEach(x->invoiceDTO.getInvoice().addCreditItem(x));
-				invoiceCreditRepo.saveAll(invoiceDTO.getInvoice().getCreditItems());
-				
+				if (invoiceDTO.getCreditItems().size() > 0) {
+					invoiceDTO.getCreditItems().forEach(x->invoiceDTO.getInvoice().addCreditItem(x));
+					invoiceCreditRepo.saveAll(invoiceDTO.getInvoice().getCreditItems());
+				}
 				
 				storeRepo.save(store);
 				//redirect to store list
