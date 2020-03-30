@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -90,7 +91,7 @@ public class InvoiceController {
 	
 	@PostMapping("/save")
 	public String save(@RequestParam("storeId") int storeId, @Valid @ModelAttribute("invoiceDTO") InvoiceDTO invoiceDTO, 
-						BindingResult bindingResult, Model model) {
+						BindingResult bindingResult, Model model, Authentication authentication) {
 		model.addAttribute("storeId", storeId);
 		Optional<Store> storeOp = storeRepo.findById(storeId);
 		if (storeOp.isPresent()) {
@@ -102,6 +103,7 @@ public class InvoiceController {
 				invoiceDTO.getCreditItems().removeIf(x-> x.getQuantity()==0);
 				//save invoice and items
 				store.getInvoices();
+				invoiceDTO.getInvoice().setCreatedBy(authentication.getName());
 				store.add(invoiceDTO.getInvoice());
 				invoiceRepo.save(invoiceDTO.getInvoice());
 				
