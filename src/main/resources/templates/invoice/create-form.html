@@ -12,7 +12,11 @@
 				</ul>
 				
 				<input type="hidden" th:field="*{invoice.id}"/>
-				<input th:field="*{invoice.terms}" placeholder="Terms" />
+				<select th:field="*{invoice.terms}">
+				  <option th:each="term : ${Terms}" 
+				          th:value="${term}" 
+				          th:text="${term}">Terms</option>
+				</select>
 				<input th:field="*{invoice.note}" placeholder="Note" />
 				<input th:field="*{invoice.discount}" placeholder="discount" />
 				<br/>

@@ -23,6 +23,7 @@ import com.alexmonjaraz.invoicetracker.DAO.InvoiceItemRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceRepo;
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
 import com.alexmonjaraz.invoicetracker.DTO.InvoiceDTO;
+import com.alexmonjaraz.invoicetracker.Enum.Terms;
 import com.alexmonjaraz.invoicetracker.entity.Invoice;
 import com.alexmonjaraz.invoicetracker.entity.Invoice_Credit;
 import com.alexmonjaraz.invoicetracker.entity.Invoice_Item;
@@ -88,6 +89,7 @@ public class InvoiceController {
 		invoiceDTO.addCreditItem(new Invoice_Credit());
 		
 		model.addAttribute("invoiceDTO", invoiceDTO);
+		model.addAttribute("Terms", Terms.values());
 		return "invoice/create-form";
 	}
 	
