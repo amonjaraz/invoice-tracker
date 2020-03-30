@@ -1,21 +1,15 @@
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org"layout:decorate="~{layout/layout}">
 	<head>
 		<title>Home</title>
-		
 	</head>
 	<body>
+	<div layout:fragment="content">
 		<div sec:authorize="isAuthenticated()">
-			Authenticated User!
 			Logged user: <span sec:authentication="name">Bob</span>
 			Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-			<form action="#" th:action="@{/logout}" method="POST">
-				<button type="submit">logout</button>
-			</form>
-			<a th:href="@{/dashboard/}">Dashboard</a>
 		</div>
-		<p>Hello from the home page</p>
-		
+		<p>Hello from the Home page</p>
+	</div>
 	</body>
 </html>

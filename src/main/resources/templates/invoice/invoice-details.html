@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"layout:decorate="~{layout/layout}">
 	<head>
-		<title>Store</title>
+		<title>Invoice Details</title>
 		
 	</head>
 	<body>
-		<p th:text="${invoice.invoiceNumber}"></p>
-		<p th:text="${invoice.dateCreated}"></p>
-		<p th:text="${invoice.createdBy}"></p>
-		<p th:text="${invoice.terms}"></p>
-		<p th:text="${invoice.note}"></p>
+		<div layout:fragment="content"> 
+			<p th:text="${invoice.invoiceNumber}"></p>
+			<p th:text="${invoice.dateCreated}"></p>
+			<p th:text="${invoice.createdBy}"></p>
+			<p th:text="${invoice.terms}"></p>
+			<p th:text="${invoice.note}"></p>
+		</div>
 	</body>
 </html>

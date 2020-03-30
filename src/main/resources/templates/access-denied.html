@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"layout:decorate="~{layout/layout}">
 	<head>
-		<title>Denied</title>
+		<title>Login</title>
 		
 	</head>
 	<body>
-		<p>Access Denied.</p>
+		<div layout:fragment="content">
+			<p>Access Denied.</p>
+		</div>
 	</body>
 </html>
