@@ -63,6 +63,8 @@ public class InvoiceController {
 		if (invoiceOp.isPresent()) {
 			Invoice invoice = invoiceOp.get();
 			model.addAttribute("invoice", invoice);
+			int storeId = invoice.getStore().getId();
+			model.addAttribute("storeId", storeId);
 			return "invoice/invoice-details";
 		}
 		return "redirect:/dashboard/store/";

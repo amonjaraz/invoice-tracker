@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		<div layout:fragment="content"> 
+			<a th:href="@{/dashboard/invoice/(storeId=${storeId})}">Back to Invoices</a>
 			<p th:text="${invoice.invoiceNumber}"></p>
 			<p th:text="${invoice.dateCreated}"></p>
 			<p th:text="${invoice.createdBy}"></p>
