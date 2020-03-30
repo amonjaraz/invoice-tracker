@@ -2,20 +2,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home</title>
+		<title>Dashboard</title>
 		
 	</head>
 	<body>
 		<div sec:authorize="isAuthenticated()">
-			Authenticated User!
 			Logged user: <span sec:authentication="name">Bob</span>
 			Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-			<form action="#" th:action="@{/logout}" method="POST">
-				<button type="submit">logout</button>
-			</form>
-			<a th:href="@{/dashboard/}">Dashboard</a>
 		</div>
-		<p>Hello from the home page</p>
-		
+		<p>Hello from the dashboard page</p>
+		<a th:href="@{/dashboard/store/}">Stores</a>
 	</body>
 </html>
