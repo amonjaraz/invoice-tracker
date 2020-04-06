@@ -44,6 +44,9 @@ public class Invoice {
 	@Column(name="commission_pay_date")
 	private Date commissionPayDate;
 	
+	@Column(name="void")
+	private boolean isVoid;
+	
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store;
@@ -148,7 +151,7 @@ public class Invoice {
 	public String toString() {
 		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", dateCreated=" + dateCreated
 				+ ", createdBy=" + createdBy + ", terms=" + terms + ", note=" + note + ", discount=" + discount
-				+ ", commissionPayDate=" + commissionPayDate + ", store=" + store + "]";
+				+ ", commissionPayDate=" + commissionPayDate + ", store=" + store +  ", isVoid=" + isVoid + "]";
 	}
 
 	public List<Invoice_Item> getInvoiceItems() {
@@ -165,6 +168,14 @@ public class Invoice {
 
 	public void setCreditItems(List<Invoice_Credit> creditItems) {
 		this.creditItems = creditItems;
+	}
+
+	public boolean isVoid() {
+		return isVoid;
+	}
+
+	public void setVoid(boolean isVoid) {
+		this.isVoid = isVoid;
 	}
 	
 	

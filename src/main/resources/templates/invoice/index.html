@@ -24,6 +24,7 @@
 						<!--|<a th:href="@{'/dashboard/store/'+${store.id}}">Detail</a>  -->
 						<td><a th:href="@{/dashboard/invoice/update(id=${invoice.id})}">Update</a> </td>
 						<td><a th:href="@{'/dashboard/invoice/'+${invoice.id}}">Details</a> </td>
+						<td ><div th:if="${not invoice.void}"><a th:href="@{/dashboard/invoice/void(id=${invoice.id})}">Mark Void</a> </div><div th:if="${invoice.void}"><p>VOID</p></div></td>
 					</tr>
 				</tbody>
 			</table>

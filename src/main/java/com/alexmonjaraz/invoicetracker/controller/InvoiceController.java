@@ -1,6 +1,7 @@
 package com.alexmonjaraz.invoicetracker.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -142,6 +143,20 @@ public class InvoiceController {
 			Invoice invoice = invoiceOp.get();
 			model.addAttribute("invoice", invoice);
 			return "invoice/create-form";
+		}
+		return "redirect:/dashboard/store/";
+	}
+	
+	@GetMapping("/void")
+	public String voidInvoice(@RequestParam("id") int id, Authentication authentication) {
+		Optional<Invoice> invoiceOp = invoiceRepo.findById(id);
+		if (invoiceOp.isPresent()) {
+			Invoice invoice = invoiceOp.get();
+			if (Objects.equals(authentication.getName().trim(), invoice.getCreatedBy().trim())) {
+				invoice.setVoid(true);
+				invoiceRepo.save(invoice);
+			}
+			else return "access-denied";
 		}
 		return "redirect:/dashboard/store/";
 	}
