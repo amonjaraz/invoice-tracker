@@ -35,6 +35,10 @@ public class Invoice_Item {
 	private Invoice invoice;
 	
 	public Invoice_Item() {}
+	
+	public Invoice_Item(String desc) {
+		this.description = desc;
+	}
 
 	public int getId() {
 		return id;

@@ -37,6 +37,10 @@ public class Invoice_Credit {
 	private Invoice invoice;
 	
 	public Invoice_Credit() {}
+	
+	public Invoice_Credit(String desc) {
+		this.description = desc;
+	}
 
 	public int getId() {
 		return id;

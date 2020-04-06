@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceCreditRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceItemRepo;
 import com.alexmonjaraz.invoicetracker.DAO.InvoiceRepo;
+import com.alexmonjaraz.invoicetracker.DAO.ProductRepo;
 import com.alexmonjaraz.invoicetracker.DAO.StoreRepo;
 import com.alexmonjaraz.invoicetracker.DTO.InvoiceDTO;
 import com.alexmonjaraz.invoicetracker.Enum.Terms;
@@ -44,6 +45,9 @@ public class InvoiceController {
 	
 	@Autowired
 	private InvoiceCreditRepo invoiceCreditRepo;
+	
+	@Autowired
+	private ProductRepo productRepo;
 	
 	@GetMapping("/")
 	public String getStoreList(@RequestParam("storeId") int storeId ,Model model) {
@@ -83,15 +87,10 @@ public class InvoiceController {
 		InvoiceDTO invoiceDTO = new InvoiceDTO();
 		invoiceDTO.setInvoice(new Invoice());
 		
-		invoiceDTO.addInventoryItem(new Invoice_Item());
-		invoiceDTO.addInventoryItem(new Invoice_Item());
-		invoiceDTO.addInventoryItem(new Invoice_Item());
-		invoiceDTO.addInventoryItem(new Invoice_Item());
-		
-		invoiceDTO.addCreditItem(new Invoice_Credit());
-		invoiceDTO.addCreditItem(new Invoice_Credit());
-		invoiceDTO.addCreditItem(new Invoice_Credit());
-		invoiceDTO.addCreditItem(new Invoice_Credit());
+		for (String product : productRepo.getAll()) {
+			invoiceDTO.addInventoryItem(new Invoice_Item(product));
+			invoiceDTO.addCreditItem(new Invoice_Credit(product));
+		}
 		
 		model.addAttribute("invoiceDTO", invoiceDTO);
 		model.addAttribute("Terms", Terms.values());
