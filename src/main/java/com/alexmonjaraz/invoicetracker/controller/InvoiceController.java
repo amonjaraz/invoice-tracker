@@ -66,6 +66,11 @@ public class InvoiceController {
 			model.addAttribute("invoice", invoice);
 			int storeId = invoice.getStore().getId();
 			model.addAttribute("storeId", storeId);
+			//get invoice details and credit items
+			
+			model.addAttribute("invoiceItems", invoice.getInvoiceItems());
+			model.addAttribute("creditItems", invoice.getCreditItems());
+			
 			return "invoice/invoice-details";
 		}
 		return "redirect:/dashboard/store/";

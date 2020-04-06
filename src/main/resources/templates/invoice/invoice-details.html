@@ -12,6 +12,46 @@
 			<p th:text="${invoice.createdBy}"></p>
 			<p th:text="${invoice.terms}"></p>
 			<p th:text="${invoice.note}"></p>
+			<br/>
+			<h3>Items</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="invoiceItem : ${invoiceItems}">
+						<td th:text="${invoiceItem.description}"></td>
+						<td th:text="${invoiceItem.quantity}"></td>
+						<td th:text="${invoiceItem.price}"></td>
+						<td th:text="${invoiceItem.quantity * invoiceItem.price}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+			<h3>Credit Items</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="creditItem : ${creditItems}">
+						<td th:text="${creditItem.description}"></td>
+						<td th:text="${creditItem.quantity}"></td>
+						<td th:text="${creditItem.price}"></td>
+						<td th:text="${creditItem.quantity * creditItem.price}"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</body>
 </html>
