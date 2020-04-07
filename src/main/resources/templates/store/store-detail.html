@@ -6,10 +6,27 @@
 	</head>
 	<body>
 		<div layout:fragment="content">
-			<p th:text="${store.name}"></p>
-			<p th:text="${store.address}"></p>
-			<p th:text="${store.city}"></p>
-			<a th:href="@{/dashboard/invoice/(storeId=${store.id})}">Invoices</a>
+			<h2 th:text="${store.name}"></h2>
+			<table class="table table-bordered">
+				<tr>
+					<td><strong>Address</strong></td>
+					<td><p th:text="${store.address}"></p></td>
+				</tr>
+				<tr>
+					<td><strong>City</strong></td>
+					<td><p th:text="${store.city}"></p></td>
+				</tr>
+				<tr>
+					<td><strong>State</strong></td>
+					<td><p th:text="${store.state}"></p></td>
+				</tr>
+				<tr>
+					<td><strong>Zip</strong></td>
+					<td><p th:text="${store.zip}"></p></td>
+				</tr>
+			</table>
+			<strong>Note:</strong><p th:text="${store.note}"></p>
+			<a th:href="@{/dashboard/invoice/(storeId=${store.id})}" class="btn btn-primary">Invoices</a>
 		</div>
 
 	</body>
