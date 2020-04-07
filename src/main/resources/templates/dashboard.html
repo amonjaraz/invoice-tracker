@@ -6,12 +6,12 @@
 	</head>
 	<body>
 	<div layout:fragment="content">
-		Content [replaced] Goes Here
 		<div sec:authorize="isAuthenticated()">
-			Logged user: <span sec:authentication="name">Bob</span>
-			Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+
 		</div>
-		<p>Hello from the dashboard page</p>
+		<h3>Hello, <span sec:authentication="name">Bob</span>!</h3> 
+		Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+		<p>Welcome to the Inventory Tracker!</p>
 		
 	</div>
 	</body>
