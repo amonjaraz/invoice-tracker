@@ -5,11 +5,11 @@
 	</head>
 	<body>
 	<div layout:fragment="content">
-		<div sec:authorize="isAuthenticated()">
-			Logged user: <span sec:authentication="name">Bob</span>
-			Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+		<div class="jumbotron">
+		  <h1>Welcome to Inventory Tracker!</h1>
+		  <p>Take the paper out of invoice tracking.</p>
+		  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn More</a></p>
 		</div>
-		<p>Hello from the Home page</p>
 	</div>
 	</body>
 </html>
